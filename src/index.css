@@ -378,6 +378,12 @@ button:focus-visible {
 .manageSidebar {
   /* 데스크탑 레이아웃에서 사이드바 폭이 필요하면 여기서 고정 */
   width: 260px;
+
+  position: sticky;
+  top: 18px;
+  height: calc(100vh - 36px);
+  overflow: hidden;
+  z-index: 50;
 }
 
 /* ====== Tablet 이하: 사이드바를 "상단바"로 전환 ====== */

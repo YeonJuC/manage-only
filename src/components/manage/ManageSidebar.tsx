@@ -27,18 +27,14 @@ async function deleteManageDeep(manageId: string) {
 export default function ManageSidebar() {
   const nav = useNavigate();
   const { manageId, manageName, clearManage } = useManage2();
-  const isTabletOrLess = window.matchMedia("(max-width: 1024px)").matches;
   
   return (
     <aside
       className="glass manageSidebar"
       style={{
-        padding: isTabletOrLess ? 12 : 16,
-        position: "sticky",        // ✅ 모바일도 sticky 유지 추천
-        top: isTabletOrLess ? 12 : 18,
-        height: isTabletOrLess ? "auto" : "calc(100vh - 36px)",
+        // 레이아웃/반응형은 CSS(index.css)에서 처리
+        padding: 16,
         overflow: "hidden",
-        zIndex: 50,
       }}
     >
       {/* 헤더 */}
