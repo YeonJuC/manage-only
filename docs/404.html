@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Redirect</title>
+    <script>
+      const base = "/manage-only";
+      const path = location.pathname.replace(base, "");
+      location.replace(
+        base + "/?redirect=" + encodeURIComponent(path + location.search + location.hash)
+      );
+    </script>
+  </head>
+  <body></body>
+</html>
