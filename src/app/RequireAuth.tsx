@@ -1,8 +1,16 @@
 import { useEffect, useState, type ReactNode } from "react";
-import { onAuthStateChanged, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import {
+  onAuthStateChanged,
+  GoogleAuthProvider,
+  signInWithRedirect,
+  getRedirectResult,
+  setPersistence,
+  browserLocalPersistence,
+  type User,
+} from "firebase/auth";
 import { auth } from "../firebase";
 
-function LoginModal() {
+function LoginModal({ onLogin }: { onLogin: () => void }) {
   const [signingIn, setSigningIn] = useState(false);
 
   return (
@@ -27,7 +35,9 @@ function LoginModal() {
         }}
       >
         <h2 style={{ margin: 0 }}>로그인</h2>
-        <p style={{ marginTop: 8, color: "var(--muted)" }}>Google 계정으로 로그인해주시길 바랍니다.</p>
+        <p style={{ marginTop: 8, color: "var(--muted)" }}>
+          Google 계정으로 로그인해주시길 바랍니다.
+        </p>
 
         <button
           className="btn"
@@ -37,13 +47,7 @@ function LoginModal() {
             if (signingIn) return;
             setSigningIn(true);
             try {
-              const provider = new GoogleAuthProvider();
-              await signInWithPopup(auth, provider);
-            } catch (e: any) {
-              if (e?.code === "auth/popup-closed-by-user") return;
-              if (e?.code === "auth/cancelled-popup-request") return;
-              console.error(e);
-              alert(e?.message ?? "로그인 실패");
+              onLogin();
             } finally {
               setSigningIn(false);
             }
@@ -58,19 +62,76 @@ function LoginModal() {
 
 export default function RequireAuth({ children }: { children: ReactNode }) {
   const [ready, setReady] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (u) => {
-      setLoggedIn(!!u);
-      setReady(true);
-    });
-    return () => unsub();
+    let mounted = true;
+
+    (async () => {
+      try {
+        // ✅ 새로고침에도 세션 유지 강제
+        await setPersistence(auth, browserLocalPersistence);
+
+        // ✅ Redirect 로그인 결과 처리(있으면 user 세팅에 도움)
+        try {
+          await getRedirectResult(auth);
+        } catch {
+          // redirect 결과가 없거나 실패해도 계속 진행
+        }
+
+        const unsub = onAuthStateChanged(auth, (u) => {
+          if (!mounted) return;
+          setUser(u);
+          setReady(true);
+        });
+
+        return () => unsub();
+      } catch {
+        // persistence 설정 실패해도 auth는 동작하니 계속 진행
+        const unsub = onAuthStateChanged(auth, (u) => {
+          if (!mounted) return;
+          setUser(u);
+          setReady(true);
+        });
+        return () => unsub();
+      }
+    })();
+
+    return () => {
+      mounted = false;
+    };
   }, []);
 
-  if (!ready) return <div className="card" style={{ padding: 16 }}>로딩 중…</div>;
-  if (!loggedIn) return <LoginModal />;
+  // ✅ ready 전에는 화면 전체를 막아서 깜빡임 제거
+  if (!ready) {
+    return (
+      <div
+        style={{
+          position: "fixed",
+          inset: 0,
+          display: "grid",
+          placeItems: "center",
+          background: "rgba(255,255,255,0.7)",
+          zIndex: 9999,
+        }}
+      >
+        <div className="card" style={{ padding: 16 }}>
+          로딩 중…
+        </div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return (
+      <LoginModal
+        onLogin={() => {
+          const provider = new GoogleAuthProvider();
+          signInWithRedirect(auth, provider);
+        }}
+      />
+    );
+  }
 
   return <>{children}</>;
 }
-
