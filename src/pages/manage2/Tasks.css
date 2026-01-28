@@ -4,14 +4,6 @@
    Page / Layout helpers
 ========================= */
 
-.tasksPage {
-  /* 인라인 ui.page가 대부분 처리하지만, 모바일에서 깨지는 것 방지 */
-}
-
-.pageTop {
-  /* ui.topBar가 기본, 모바일에서만 재배치 */
-}
-
 .pageHeaderBtn {
   /* 섹션관리 버튼(인라인 style 있지만 보정용) */
   white-space: nowrap !important;
@@ -74,9 +66,7 @@
      인라인이 우선이지만, 텍스트/버튼/배지 등은 CSS로 충분히 컨트롤 가능
 ========================= */
 
-.taskCard {
-  /* 카드 자체는 인라인이 우선이므로 여기선 보조만 */
-}
+
 
 .taskActions {
   display: flex;
