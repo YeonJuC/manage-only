@@ -1,0 +1,637 @@
+/* src/pages/manage2/Manage2Calendar.css */
+
+/* ===== Page ===== */
+.calBg {
+  min-height: 100vh;
+  padding: 22px 18px 44px;
+  background: radial-gradient(1200px 600px at 20% 10%, rgba(99, 102, 241, 0.16), transparent 60%),
+    radial-gradient(900px 500px at 80% 30%, rgba(59, 130, 246, 0.14), transparent 55%),
+    linear-gradient(180deg, rgba(241, 245, 249, 0.6), rgba(248, 250, 252, 0.9));
+}
+
+.calPage {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* ===== Hero ===== */
+.calHero {
+  padding: 12px 2px 10px;
+  margin-bottom: 10px;
+  padding-left: 52px; /* 텍스트 3줄 조금 더 오른쪽 */
+}
+
+.calHeroText {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 760px;
+}
+
+.calTopRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.calChip {
+  display: inline-flex;
+  align-items: center;
+  height: 28px;
+  padding: 0 11px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 14px;
+  border: 1px solid rgba(148, 163, 184, 0.55);
+  background: rgba(59, 130, 246, 0.12);
+  color: rgba(37, 99, 235, 0.95);
+}
+
+.calTopDesc {
+  font-size: 14px;
+  font-weight: 800;
+  color: rgba(15, 23, 42, 0.5);
+}
+
+.calTitle {
+  margin: 0;
+  font-size: 40px;
+  line-height: 1.08;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: rgba(15, 23, 42, 0.92);
+}
+
+.calSub {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 800;
+  color: rgba(15, 23, 42, 0.42);
+}
+
+.calErr {
+  margin-top: 6px;
+  width: fit-content;
+  font-size: 12px;
+  font-weight: 800;
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  padding: 8px 10px;
+  border-radius: 12px;
+}
+
+/* ===== Layout ===== */
+.calGrid {
+  margin-top: 26px; /* 텍스트 3줄과 박스 사이 간격 */
+  display: grid;
+  grid-template-columns: 1.25fr 0.95fr;
+  gap: 18px;
+  align-items: start;
+}
+
+/* ===== Glass Cards ===== */
+.glass {
+  border-radius: 20px;
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  background: rgba(255, 255, 255, 0.62);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.10);
+}
+
+.calCard {
+  padding: 18px;
+  min-height: 560px; /* 달력 높이 확보 */
+}
+
+.dayCard {
+  padding: 18px;
+}
+
+/* ===== Right panel ===== */
+.dayHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.25);
+  margin-bottom: 12px;
+}
+
+.dayTitle {
+  font-size: 20px;
+  font-weight: 900;
+  color: rgba(15, 23, 42, 0.92);
+}
+
+.dayMeta {
+  margin-top: 6px;
+  font-size: 12px;
+  font-weight: 800;
+  color: rgba(15, 23, 42, 0.5);
+}
+
+.dayList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 240px;
+}
+
+.empty {
+  padding: 18px 12px;
+  border-radius: 14px;
+  border: 1px dashed rgba(148, 163, 184, 0.6);
+  color: rgba(15, 23, 42, 0.55);
+  font-weight: 800;
+  background: rgba(248, 250, 252, 0.7);
+  font-size: 13px;
+}
+
+.taskRow {
+  display: flex;
+  gap: 10px;
+  padding: 11px 12px;
+  border-radius: 16px;
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  background: rgba(255, 255, 255, 0.7);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.taskRow:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.10);
+  background: rgba(255, 255, 255, 0.78);
+}
+
+.taskRow.done {
+  opacity: 0.7;
+}
+
+.taskRow .bar {
+  width: 6px;
+  border-radius: 999px;
+  margin-top: 2px;
+}
+
+.taskMain {
+  flex: 1;
+  min-width: 0;
+}
+
+.taskTitle {
+  font-size: 14px;
+  font-weight: 900;
+  color: rgba(15, 23, 42, 0.92);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.taskMeta {
+  margin-top: 7px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  height: 20px;
+  padding: 0 9px;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.state {
+  font-size: 11px;
+  font-weight: 900;
+  color: rgba(15, 23, 42, 0.55);
+}
+
+.hint {
+  margin-top: 12px;
+  font-size: 11px;
+  font-weight: 800;
+  color: rgba(15, 23, 42, 0.42);
+}
+
+/* =========================
+   ✅ Calendar UI polish
+   (글자 크기/버튼/셀/오늘/선택/주말/hover)
+   ========================= */
+
+.react-calendar {
+  width: 100%;
+  border: none;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.60);
+  padding: 12px 10px 14px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.70);
+}
+
+.react-calendar__navigation {
+  margin-bottom: 12px;
+  display: grid;
+  grid-template-columns: 42px 42px 1fr 42px 42px;
+  align-items: center;
+  gap: 8px;
+}
+
+.react-calendar__navigation button {
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  background: rgba(255, 255, 255, 0.65);
+  border-radius: 14px;
+  height: 38px;
+  min-width: 38px;
+  font-weight: 900;
+  color: rgba(15, 23, 42, 0.80);
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+}
+
+.react-calendar__navigation button:enabled:hover {
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.10);
+  transform: translateY(-1px);
+}
+
+.react-calendar__navigation button:enabled:active {
+  transform: translateY(0px);
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.10);
+}
+
+.react-calendar__navigation button:disabled {
+  opacity: 0.45;
+}
+
+.react-calendar__navigation__label {
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  font-size: 18px;
+  font-weight: 1000;
+  letter-spacing: -0.02em;
+  color: rgba(15, 23, 42, 0.92);
+  height: 38px;
+}
+
+.react-calendar__navigation__label:hover {
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Weekdays */
+.react-calendar__month-view__weekdays {
+  margin-bottom: 10px;
+  padding: 0 6px;
+  font-size: 12px;
+  font-weight: 950;
+  letter-spacing: 0.02em;
+  color: rgba(15, 23, 42, 0.55);
+  text-transform: none;
+}
+
+.react-calendar__month-view__weekdays__weekday abbr {
+  text-decoration: none;
+}
+
+/* 주말 요일 색 */
+.react-calendar__month-view__weekdays__weekday:first-child {
+  color: rgba(239, 68, 68, 0.72);
+}
+.react-calendar__month-view__weekdays__weekday:last-child {
+  color: rgba(59, 130, 246, 0.72);
+}
+
+.react-calendar__month-view__days {
+  row-gap: 8px;
+}
+
+/* Tile */
+.react-calendar__tile {
+  border-radius: 16px;
+  position: relative;
+  height: 66px;
+  padding: 10px 6px 8px;
+  background: transparent;
+  transition: transform 0.12s ease, background 0.12s ease, box-shadow 0.12s ease;
+}
+
+.react-calendar__tile:enabled:hover {
+  background: rgba(255, 255, 255, 0.68);
+  box-shadow: 0 12px 26px rgba(15, 23, 42, 0.10);
+  transform: translateY(-1px);
+}
+
+.react-calendar__tile abbr {
+  font-size: 14px;
+  font-weight: 1000;
+  color: rgba(15, 23, 42, 0.88);
+}
+
+/* 이전/다음 달 날짜 */
+.react-calendar__month-view__days__day--neighboringMonth abbr {
+  color: rgba(15, 23, 42, 0.28);
+  font-weight: 900;
+}
+
+/* 주말 날짜 색(톤다운) */
+.react-calendar__month-view__days__day--weekend:first-child abbr {
+  color: rgba(239, 68, 68, 0.80);
+}
+.react-calendar__month-view__days__day--weekend:last-child abbr {
+  color: rgba(59, 130, 246, 0.80);
+}
+
+/* ✅ 오늘 표시 */
+.react-calendar__tile--now {
+  background: linear-gradient(
+    180deg,
+    rgba(59, 130, 246, 0.14),
+    rgba(59, 130, 246, 0.06)
+  ) !important;
+  box-shadow: inset 0 0 0 2px rgba(37, 99, 235, 0.32), 0 10px 22px rgba(37, 99, 235, 0.10);
+}
+
+.react-calendar__tile--now abbr {
+  color: rgba(37, 99, 235, 0.98);
+}
+
+/* ✅ 선택 표시 */
+.isSelected {
+  outline: none;
+  background: linear-gradient(
+    180deg,
+    rgba(37, 99, 235, 0.16),
+    rgba(37, 99, 235, 0.08)
+  ) !important;
+  box-shadow: inset 0 0 0 2px rgba(37, 99, 235, 0.46), 0 14px 28px rgba(15, 23, 42, 0.12);
+}
+
+.isSelected abbr {
+  color: rgba(29, 78, 216, 0.98);
+}
+
+/* 오늘 + 선택 */
+.react-calendar__tile--now.isSelected {
+  box-shadow: inset 0 0 0 2px rgba(37, 99, 235, 0.55), 0 16px 34px rgba(37, 99, 235, 0.14);
+}
+
+/* ===== Bars (짧고 잘 보이게) ===== */
+.tileBars {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
+  pointer-events: none;
+}
+
+.barLine {
+  height: 4px;
+  border-radius: 999px;
+  width: 42px; /* 바 길이 */
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.70), 0 2px 8px rgba(15, 23, 42, 0.10);
+  opacity: 0.95;
+}
+
+.barMore {
+  margin-top: 2px;
+  font-size: 10px;
+  font-weight: 950;
+  color: rgba(15, 23, 42, 0.55);
+}
+
+/* =========================
+   ✅ Responsive (캘린더 + 페이지)
+   ========================= */
+
+/* 태블릿 이하 */
+@media (max-width: 980px) {
+  .calHero {
+    padding-left: 20px;
+  }
+
+  .calGrid {
+    grid-template-columns: 1fr;
+    margin-top: 22px;
+  }
+
+  .calCard {
+    min-height: auto;
+  }
+
+  .react-calendar__tile {
+    height: 60px;
+  }
+
+  .react-calendar__navigation__label {
+    font-size: 17px;
+  }
+}
+
+/* ✅ 모바일(폰) */
+@media (max-width: 600px) {
+  .calBg {
+    padding: 16px 12px 32px;
+  }
+
+  .calPage {
+    max-width: 100%;
+  }
+
+  .calHero {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .calChip {
+    height: 26px;
+    padding: 0 10px;
+    font-size: 13px;
+  }
+
+  .calTopDesc {
+    display: none;
+  }
+
+  .calTitle {
+    font-size: 32px;
+  }
+
+  .calSub {
+    font-size: 13px;
+  }
+
+  .calGrid {
+    gap: 14px;
+    margin-top: 18px;
+  }
+
+  .glass {
+    border-radius: 18px;
+  }
+
+  .calCard,
+  .dayCard {
+    padding: 14px;
+  }
+
+  .dayTitle {
+    font-size: 18px;
+  }
+
+  .react-calendar {
+    padding: 10px 8px 12px;
+    border-radius: 16px;
+  }
+
+  .react-calendar__navigation {
+    grid-template-columns: 38px 38px 1fr 38px 38px;
+    gap: 6px;
+  }
+
+  .react-calendar__navigation button {
+    height: 34px;
+    border-radius: 12px;
+  }
+
+  .react-calendar__navigation__label {
+    font-size: 16px;
+  }
+
+  .react-calendar__month-view__weekdays {
+    font-size: 11px;
+    margin-bottom: 8px;
+  }
+
+  .react-calendar__tile {
+    height: 54px;
+    border-radius: 14px;
+    padding-top: 8px;
+  }
+
+  .react-calendar__tile abbr {
+    font-size: 13px;
+  }
+
+  .barLine {
+    width: 38px;
+    height: 4px;
+  }
+}
+
+/* ✅ 작은 폰(320px~) */
+@media (max-width: 360px) {
+  .calBg {
+    padding: 14px 10px 28px;
+  }
+
+  .calHero {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .calTitle {
+    font-size: 28px;
+  }
+
+  .react-calendar__tile {
+    height: 50px;
+  }
+
+  .barLine {
+    width: 34px;
+  }
+}
+
+/* =========================
+   ✅ Sidebar Responsive (중복 제거 버전)
+   - 데스크탑: sticky 유지
+   - 태블릿/폰: 상단바로 전환
+   ========================= */
+
+/* 데스크탑(기본) */
+.manageSidebar {
+  width: 260px;
+}
+
+/* Tablet 이하: 상단바 전환 */
+@media (max-width: 1024px) {
+  .manageSidebar {
+    position: fixed !important;
+    left: 12px;
+    right: 12px;
+    top: 12px !important;
+    height: auto !important;
+    width: auto !important;
+    padding: 12px !important;
+    overflow: visible !important;
+    z-index: 50;
+  }
+
+  .manageSidebar .sideHeader {
+    padding: 0 !important;
+    display: grid;
+    gap: 8px;
+  }
+
+  .manageSidebar .sideHeaderActions {
+    margin-top: 0 !important;
+    justify-content: flex-end;
+  }
+
+  .manageSidebar .sideNav {
+    padding: 0 !important;
+    display: grid !important;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .manageSidebar .sideDivider,
+  .manageSidebar .sideHint {
+    display: none;
+  }
+}
+
+/* Phone: 더 촘촘 */
+@media (max-width: 640px) {
+  .manageSidebar {
+    left: 10px;
+    right: 10px;
+    top: 10px !important;
+    padding: 10px !important;
+  }
+
+  .manageSidebar .sideTitle {
+    font-size: 14px !important;
+  }
+
+  .manageSidebar .iconBtn {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+
+  .manageSidebar .sideDot {
+    display: none;
+  }
+
+  .manageSidebar .sideHeaderActions {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .manageSidebar .sideLink {
+    padding: 10px 10px;
+    font-size: 13px;
+    text-align: center;
+  }
+  .react-calendar, .react-calendar *, .react-calendar *:before, .react-calendar *:after {
+    font-size: 10px;
+  }
+}

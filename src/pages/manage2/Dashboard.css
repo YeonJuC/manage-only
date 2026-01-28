@@ -1,0 +1,857 @@
+/* src/pages/manage2/Dashboard.css */
+
+/* =========================
+   Tokens
+========================= */
+:root{
+  --bg1: rgba(56, 189, 248, 0.18);
+  --bg2: rgba(167, 139, 250, 0.16);
+  --bg3: rgba(34, 197, 94, 0.10);
+
+  --text: rgba(15, 23, 42, 0.92);
+  --muted: rgba(15, 23, 42, 0.55);
+
+  --glass: rgba(255,255,255,.52);
+  --glass-strong: rgba(255,255,255,.58);
+  --glass-border: rgba(255,255,255,.70);
+
+  --shadow: 0 28px 90px rgba(15,23,42,.10);
+  --radius: 18px;
+
+  /* spacing */
+  --gap-s: 12px;
+  --gap-m: 18px;
+  --gap-l: 42px;     /* 섹션 간격 */
+  --gap-xl: 56px;
+
+  /* quick cards */
+  --quick-gap: 10px;
+  --quick-w: clamp(200px, 22vw, 280px);
+
+  /* KPI */
+  --kpi-h: 74px;
+  --kpi-gap: 10px;
+}
+
+/* =========================
+   Page
+========================= */
+.dashPage{
+  min-height: 100vh;
+  padding: 22px 22px 56px;
+  background:
+    radial-gradient(1200px 800px at 18% 18%, var(--bg1), transparent 60%),
+    radial-gradient(1000px 700px at 85% 22%, var(--bg2), transparent 55%),
+    radial-gradient(1200px 800px at 60% 88%, var(--bg3), transparent 55%),
+    linear-gradient(180deg, #f6f8ff 0%, #f6f7ff 40%, #f8fbff 100%);
+}
+
+.dashWrap{
+  max-width: 1160px;
+  margin: 0 auto;
+}
+
+/* 공통 글래스 카드 */
+.card{
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(22px) saturate(140%);
+  -webkit-backdrop-filter: blur(22px) saturate(140%);
+  border-radius: var(--radius);
+  padding: 18px;
+}
+
+/* =========================
+   Header
+========================= */
+.dashHeader{
+  display: grid;
+  gap: 10px;
+  margin-top: 10px;
+  margin-bottom: var(--gap-xl);
+}
+
+.dashChipRow{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dashChip{
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: rgba(37, 99, 235, 0.10);
+  border: 1px solid rgba(37, 99, 235, 0.16);
+  font-weight: 1000;
+  color: rgba(37, 99, 235, 0.92);
+  font-size: 12px;
+}
+
+.dashTiny{
+  color: rgba(15,23,42,.45);
+  font-weight: 900;
+  font-size: 12px;
+}
+
+.dashTitleRow{
+  display: grid;
+  gap: 6px;
+}
+
+.dashTitle{
+  margin: 0;
+  font-size: 38px;
+  font-weight: 1000;
+  letter-spacing: -1px;
+  color: var(--text);
+}
+
+.dashSub{
+  font-weight: 900;
+  color: rgba(15, 23, 42, 0.55);
+}
+
+/* Error */
+.dashErr{
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 14px;
+  background: rgba(239,68,68,.10);
+  border: 1px solid rgba(239,68,68,.18);
+  color: rgba(239,68,68,.95);
+  font-weight: 900;
+}
+
+/* =========================
+   Center Search
+========================= */
+.searchCenter{
+  display: grid;
+  place-items: center;
+}
+
+.searchGlass{
+  width: min(920px, 100%);
+  display: grid;
+  grid-template-columns: 1fr auto auto; /* ✅ 기존 190px 컬럼 제거(반응형 안정) */
+  gap: 12px;
+  align-items: center;
+
+  padding: 12px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.42);
+  border: 1px solid rgba(255,255,255,.60);
+  box-shadow: 0 26px 90px rgba(15,23,42,.10);
+  backdrop-filter: blur(22px) saturate(140%);
+  -webkit-backdrop-filter: blur(22px) saturate(140%);
+}
+
+.searchField{
+  height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(148,163,184,.18);
+  background: rgba(255,255,255,.62);
+  min-width: 0; /* ✅ input overflow 방지 */
+}
+
+.searchIcon{
+  color: rgba(37,99,235,.85);
+  font-weight: 1000;
+}
+
+.searchInput{
+  width: 100%;
+  border: 0;
+  outline: none;
+  background: transparent;
+  font-weight: 900;
+  color: rgba(15,23,42,.82);
+  min-width: 0;
+}
+
+.pill{
+  height: 44px;
+  border-radius: 999px;
+  padding: 0 14px;
+  border: 1px solid rgba(148,163,184,.18);
+  background: rgba(255,255,255,.50);
+  box-shadow: 0 12px 30px rgba(15,23,42,.05);
+  font-weight: 1000;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.pill--on{
+  border-color: rgba(37,99,235,.20);
+  background: rgba(37,99,235,.10);
+  color: rgba(37,99,235,.95);
+}
+.pill--ghost{
+  background: rgba(255,255,255,.22);
+}
+
+/* =========================
+   Search Result (under search bar)
+========================= */
+.searchResultWrap{
+  margin-top: 14px;
+  display: grid;
+  place-items: center;
+  width: 100%;
+}
+
+.searchResultCard{
+  width: min(920px, 100%);
+  border-radius: 18px;
+  padding: 14px;
+  background: rgba(255,255,255,.44);
+  border: 1px solid rgba(255,255,255,.62);
+  box-shadow: 0 22px 70px rgba(15,23,42,.10);
+  backdrop-filter: blur(22px) saturate(140%);
+  -webkit-backdrop-filter: blur(22px) saturate(140%);
+}
+
+.searchResultHead{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(148,163,184,.14);
+}
+
+.searchResultTitle{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 1000;
+  color: rgba(15,23,42,.92);
+  min-width: 0;
+}
+
+.searchResultChip{
+  font-size: 12px;
+  font-weight: 1000;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(37,99,235,.18);
+  background: rgba(37,99,235,.08);
+  color: rgba(37,99,235,.92);
+  white-space: nowrap;
+}
+
+.searchResultBody{
+  padding-top: 12px;
+  max-height: 320px;
+  overflow: auto;
+  padding-right: 6px;
+}
+
+/* 섹션 타이틀 */
+.searchSectionTitle{
+  font-size: 12px;
+  font-weight: 1000;
+  color: rgba(15,23,42,.60);
+  margin-bottom: 8px;
+}
+
+/* searchResultBody 스크롤바 */
+.searchResultBody::-webkit-scrollbar{ width: 10px; }
+.searchResultBody::-webkit-scrollbar-thumb{
+  background: rgba(148,163,184,.35);
+  border-radius: 999px;
+  border: 3px solid rgba(255,255,255,0);
+  background-clip: content-box;
+}
+.searchResultBody::-webkit-scrollbar-track{ background: transparent; }
+
+/* =========================
+   Quick 3 cards
+========================= */
+.quickRow{
+  margin-top: var(--gap-l);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, var(--quick-w)));
+  gap: var(--quick-gap);
+  justify-content: center;
+  align-items: stretch;
+}
+
+.quickCard{
+  border: 1px solid rgba(255,255,255,.62);
+  background: rgba(255,255,255,.46);
+  box-shadow: 0 14px 44px rgba(15,23,42,.06);
+  backdrop-filter: blur(18px) saturate(130%);
+  -webkit-backdrop-filter: blur(18px) saturate(130%);
+
+  border-radius: 14px;
+  padding: 14px 16px;
+  min-height: 56px;
+
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 30px 1fr auto;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+}
+
+.quickCard--active{
+  background: rgba(37,99,235,.08);
+  border-color: rgba(37,99,235,.22);
+  box-shadow: 0 20px 60px rgba(37,99,235,.10);
+}
+
+.quickIcon{
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  background: rgba(37,99,235,.10);
+  border: 1px solid rgba(37,99,235,.14);
+  font-size: 13px;
+}
+
+.quickTitle{
+  font-weight: 1000;
+  color: rgba(15,23,42,.92);
+  font-size: 12px;
+  line-height: 1.15;
+}
+.quickSub{
+  margin-top: 2px;
+  font-weight: 900;
+  color: rgba(15,23,42,.50);
+  font-size: 11px;
+}
+.quickMeta{
+  font-weight: 1000;
+  color: rgba(37,99,235,.85);
+  font-size: 11px;
+}
+
+/* =========================
+   Quick Panel
+========================= */
+.quickPanelWrap{
+  margin-top: 14px;
+  display: grid;
+  justify-content: center;
+  width: 100%;
+}
+
+.quickPanel{
+  width: min(880px, 100%);
+  border-radius: 18px;
+  padding: 14px;
+  background: rgba(255,255,255,.44);
+  border: 1px solid rgba(255,255,255,.62);
+  box-shadow: 0 22px 70px rgba(15,23,42,.10);
+  backdrop-filter: blur(22px) saturate(140%);
+  -webkit-backdrop-filter: blur(22px) saturate(140%);
+
+  transform: translateY(-6px) scale(.985);
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  pointer-events: none;
+
+  transition:
+    opacity .22s ease,
+    transform .22s ease,
+    max-height .28s ease;
+}
+
+.quickPanel.isOpen{
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  max-height: 520px;
+  pointer-events: auto;
+}
+
+.quickPanelHead{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(148,163,184,.14);
+}
+
+.quickPanelTitle{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 1000;
+  color: rgba(15,23,42,.92);
+}
+
+.quickPanelBadge{
+  font-size: 12px;
+  font-weight: 1000;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(37,99,235,.18);
+  background: rgba(37,99,235,.08);
+  color: rgba(37,99,235,.92);
+}
+
+.panelCloseBtn{
+  height: 34px;
+  border-radius: 999px;
+  padding: 0 12px;
+  border: 1px solid rgba(148,163,184,.18);
+  background: rgba(255,255,255,.55);
+  box-shadow: 0 10px 28px rgba(15,23,42,.05);
+  font-weight: 1000;
+  cursor: pointer;
+}
+.panelCloseBtn:hover{ background: rgba(255,255,255,.70); }
+.panelCloseBtn:active{ transform: scale(.98); }
+
+.quickPanelBody{
+  padding-top: 12px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+/* =========================
+   List UI (shared)
+========================= */
+.qList{
+  display: grid;
+  gap: 10px;
+}
+
+.qItem{
+  display: grid;
+  grid-template-columns: 34px 1fr auto;
+  align-items: center;
+  gap: 10px;
+
+  padding: 12px;
+  border-radius: 16px;
+  border: 1px solid rgba(148,163,184,.16);
+  background: rgba(255,255,255,.62);
+  box-shadow: 0 12px 28px rgba(15,23,42,.06);
+}
+
+.qItemIcon{
+  width: 34px;
+  height: 34px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: rgba(37,99,235,.10);
+  border: 1px solid rgba(37,99,235,.14);
+  font-size: 14px;
+}
+
+.qItemMain{ min-width: 0; }
+.qItemTitle{
+  font-weight: 1000;
+  color: rgba(15,23,42,.92);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.qItemSub{
+  margin-top: 4px;
+  font-size: 12px;
+  font-weight: 900;
+  color: rgba(15,23,42,.50);
+}
+
+.qPill{
+  padding: 7px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 1000;
+  border: 1px solid rgba(148,163,184,.18);
+  background: rgba(255,255,255,.55);
+  color: rgba(15,23,42,.65);
+}
+.qPill--danger{
+  border-color: rgba(239,68,68,.18);
+  background: rgba(239,68,68,.10);
+  color: rgba(239,68,68,.92);
+}
+.qPill--info{
+  border-color: rgba(37,99,235,.18);
+  background: rgba(37,99,235,.10);
+  color: rgba(37,99,235,.92);
+}
+
+.qEmpty{
+  padding: 14px;
+  border-radius: 16px;
+  border: 1px dashed rgba(148,163,184,.30);
+  background: rgba(255,255,255,.40);
+  color: rgba(15,23,42,.55);
+  font-weight: 900;
+}
+
+/* =========================
+   KPI + Memo
+========================= */
+.kpiMemoRow{
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 14px;
+  align-items: stretch;
+}
+
+.kpiGrid4{
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(2, 1fr);
+  gap: var(--kpi-gap);
+}
+
+.kpiGrid4 .kpiCard{
+  height: var(--kpi-h);
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(255,255,255,.40);
+  border: 1px solid rgba(255,255,255,.60);
+  box-shadow: 0 14px 40px rgba(15,23,42,.07);
+}
+
+.kpiTop{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.kpiTitle{
+  font-size: 11.5px;
+  font-weight: 900;
+  color: rgba(15,23,42,.55);
+}
+.kpiDot{
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+}
+.kpiValue{
+  margin-top: 6px;
+  font-size: 20px;
+  font-weight: 1100;
+  color: rgba(15,23,42,.92);
+}
+
+/* memo side = KPI 2줄 높이 맞춤(데스크탑만) */
+.memoSide{
+  height: calc((var(--kpi-h) * 2) + var(--kpi-gap));
+  padding: 14px;
+  border-radius: 16px;
+  background: rgba(255,255,255,.42);
+  border: 1px solid rgba(255,255,255,.60);
+  box-shadow: 0 18px 55px rgba(15,23,42,.08);
+
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.memoFloatHead{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 10px;
+  padding: 0 2px;
+  margin-bottom: 10px;
+}
+.memoFloatTitle{
+  font-weight: 1000;
+  color: rgba(15,23,42,.88);
+  font-size: 13px;
+}
+.memoFloatCount{
+  font-weight: 1000;
+  font-size: 12px;
+  color: rgba(15,23,42,.45);
+}
+
+.memoFloatInput{
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+}
+
+.memoInput{
+  height: 38px;
+  padding: 0 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(148,163,184,.20);
+  background: rgba(255,255,255,.66);
+  font-weight: 900;
+  outline: none;
+}
+.memoInput:focus{
+  border-color: rgba(59,130,246,.45);
+  box-shadow: 0 0 0 4px rgba(59,130,246,.10);
+}
+
+.memoAddBtn{
+  height: 38px;
+  padding: 0 12px;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(180deg, #3b82f6, #2563eb);
+  color: #fff;
+  font-weight: 1000;
+  cursor: pointer;
+  box-shadow: 0 16px 40px rgba(37,99,235,.18);
+}
+.memoAddBtn:active{ transform: scale(.98); }
+
+.stickyWall--memoSide{
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding-right: 6px;
+}
+
+.sticky{
+  border-radius: 12px;
+  padding: 9px 9px 7px;
+  border: 1px solid rgba(148,163,184,.16);
+  box-shadow: 0 16px 34px rgba(15,23,42,.08);
+  min-height: 58px;
+  position: relative;
+  overflow: hidden;
+}
+.sticky--v1{ background: rgba(255,247,205,.92); }
+.sticky--v2{ background: rgba(220,252,231,.88); }
+.sticky--v3{ background: rgba(224,231,255,.88); }
+
+.sticky::before{
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: 18px;
+  width: 52px;
+  height: 18px;
+  border-radius: 6px;
+  background: rgba(255,255,255,.55);
+  border: 1px solid rgba(148,163,184,.18);
+  box-shadow: 0 8px 18px rgba(15,23,42,.06);
+  transform: rotate(-6deg);
+}
+
+.stickyText{
+  font-weight: 900;
+  color: rgba(15,23,42,.86);
+  line-height: 1.25;
+  word-break: break-word;
+  padding-top: 6px;
+  padding-right: 44px;
+}
+
+.stickyActions{
+  position: absolute;
+  right: 6px;
+  bottom: 6px;
+  display: flex;
+  gap: 4px;
+}
+
+.iconOnly{
+  border: none;
+  background: transparent;
+  padding: 6px;
+  cursor: pointer;
+  color: rgba(15,23,42,.55);
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.iconOnly:active{ transform: scale(.94); }
+
+.memoEmpty{
+  font-weight: 800;
+  color: rgba(15,23,42,.55);
+  padding: 6px 2px;
+}
+
+/* memo scrollbar */
+.stickyWall--memoSide::-webkit-scrollbar{ width: 10px; }
+.stickyWall--memoSide::-webkit-scrollbar-thumb{
+  background: rgba(148,163,184,.35);
+  border-radius: 999px;
+  border: 3px solid rgba(255,255,255,0);
+  background-clip: content-box;
+}
+.stickyWall--memoSide::-webkit-scrollbar-track{ background: transparent; }
+
+.dashBottomSpace{ height: 44px; }
+
+/* =========================
+   Check button (shared)
+========================= */
+.checkBtn{
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  border: 1.5px solid rgba(148,163,184,.45);
+  background: rgba(255,255,255,.85);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+
+.checkBtn.isDone{
+  background: rgba(37,99,235,.12);
+  border-color: rgba(37,99,235,.45);
+}
+
+.checkIcon{
+  font-size: 14px;
+  font-weight: 1000;
+  color: rgba(37,99,235,.95);
+  line-height: 1;
+  transform: translateY(-0.5px);
+}
+
+.checkBtn:active{ transform: scale(.94); }
+
+/* =================================================================
+   RESPONSIVE
+   - Tablet (<= 1100): 레이아웃 완만하게 줄이기
+   - Small Tablet (<= 900): 2열 정리
+   - Phone (<= 640): 1열, 스크롤/높이 정책 변경
+================================================================= */
+
+/* Tablet */
+@media (max-width: 1100px){
+  .dashPage{ padding: 18px 16px 48px; }
+
+  .dashHeader{ margin-bottom: 42px; }
+  .dashTitle{ font-size: 34px; }
+
+  /* 검색바: 캡슐 -> 라운드 카드 */
+  .searchGlass{
+    border-radius: 18px;
+    padding: 12px;
+    width: 100%;
+  }
+
+  /* 퀵카드: 3 -> 2열 */
+  .quickRow{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    justify-content: stretch;
+  }
+
+  /* KPI + Memo: 2컬럼 -> 1컬럼 */
+  .kpiMemoRow{
+    grid-template-columns: 1fr;
+    margin-top: 28px;
+  }
+
+  /* 모바일/태블릿에선 memoSide 높이 고정 풀기 */
+  .memoSide{
+    height: auto;
+  }
+
+  .stickyWall--memoSide{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    overflow: visible;
+    padding-right: 0;
+  }
+}
+
+/* Small Tablet */
+@media (max-width: 900px){
+  .dashWrap{ max-width: 100%; }
+
+  .dashTitle{ font-size: 32px; }
+
+  /* search buttons 줄여서 빡빡함 방지 */
+  .pill{ padding: 0 12px; }
+
+  /* 검색 결과 카드/패널 꽉차게 */
+  .searchResultCard,
+  .quickPanel{
+    width: 100%;
+  }
+}
+
+/* Phone */
+@media (max-width: 640px){
+  .dashPage{ padding: 16px 14px 44px; }
+  .dashTitle{ font-size: 28px; }
+  .dashSub{ font-size: 13px; }
+
+  /* 검색바: 세로 스택 */
+  .searchGlass{
+    grid-template-columns: 1fr;
+    gap: 10px;
+    border-radius: 16px;
+  }
+
+  /* 검색 결과: 모바일은 내부 스크롤 불편 -> 풀기 */
+  .searchResultCard{ border-radius: 16px; }
+  .searchResultBody{
+    max-height: none;
+    overflow: visible;
+    padding-right: 0;
+  }
+
+  /* 퀵카드: 1열 */
+  .quickRow{
+    grid-template-columns: 1fr;
+  }
+
+  /* 패널: 높이 제한 풀기 */
+  .quickPanel{
+    border-radius: 16px;
+  }
+  .quickPanel.isOpen{
+    max-height: none;
+  }
+
+  /* 리스트: pill을 아래로 */
+  .qItem{
+    grid-template-columns: 32px 1fr;
+    gap: 10px;
+  }
+  .qPill{
+    justify-self: start;
+    margin-left: 42px;
+    margin-top: -4px;
+  }
+
+  /* KPI: 2열 유지(너무 작으면 1열로 바꿔도 됨) */
+  .kpiGrid4{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* 메모 스티키: 1열 */
+  .stickyWall--memoSide{
+    grid-template-columns: 1fr;
+  }
+  .memoAddBtn{
+  font-size: 12px;
+  padding: 6px 0;
+  }
+}

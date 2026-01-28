@@ -1,0 +1,52 @@
+/* src/styles/mobile.css */
+@media (max-width: 900px){
+  :root{
+    --radius: 16px;
+    --gap-s: 10px;
+    --gap-m: 14px;
+    --gap-l: 28px;
+    --gap-xl: 36px;
+  }
+}
+
+@media (max-width: 640px){
+  /* 모바일 기본 여백/글자/터치 영역 */
+  :root{
+    --radius: 16px;
+    --gap-s: 10px;
+    --gap-m: 12px;
+    --gap-l: 24px;
+    --gap-xl: 32px;
+  }
+
+  /* 페이지 공통 래퍼 패딩 */
+  .dashPage,
+  .tasksPage,
+  .calendarPage{
+    padding: 14px 12px 40px !important;
+  }
+
+  /* 카드류 공통 */
+  .card{
+    border-radius: 16px !important;
+    padding: 14px !important;
+  }
+
+  /* 버튼/입력 최소 터치 높이 */
+  button,
+  .pill,
+  .btn,
+  input,
+  select{
+    min-height: 40px;
+  }
+
+  /* 긴 텍스트 줄바꿈 */
+  .rowTitle,
+  .qItemTitle{
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    word-break: break-word;
+  }
+}

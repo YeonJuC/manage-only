@@ -1,0 +1,354 @@
+/* src/pages/manage2/Tasks.css */
+
+/* =========================
+   Page / Layout helpers
+========================= */
+
+.tasksPage {
+  /* 인라인 ui.page가 대부분 처리하지만, 모바일에서 깨지는 것 방지 */
+}
+
+.pageTop {
+  /* ui.topBar가 기본, 모바일에서만 재배치 */
+}
+
+.pageHeaderBtn {
+  /* 섹션관리 버튼(인라인 style 있지만 보정용) */
+  white-space: nowrap !important;
+}
+
+/* =========================
+   Grid responsive (class로만)
+========================= */
+
+.tasksGrid {
+  width: 100%;
+}
+
+/* 모바일/태블릿에서 패널 최소 높이 줄이고 여백도 조금 줄여서 컴팩트하게 */
+.tasksPanel {
+  min-height: 0 !important; /* ui.panel minHeight:500 덮어씀 */
+}
+
+/* =========================
+   Input Row (핵심: 입력 박스 높이 줄이기)
+   - 인라인 style을 덮기 위해 !important 사용
+========================= */
+
+.tasksInputRow {
+  align-items: center;
+}
+
+/* "할 일을 입력하고 Enter" (첫번째 input) */
+.tasksInputRow input:not([type="date"]) {
+  height: auto !important;
+  padding: 10px 12px !important; /* ✅ 두껍지 않게 */
+  line-height: 1.2 !important;
+  border-radius: 14px !important;
+}
+
+/* date input (두번째 input) */
+.tasksInputRow input[type="date"] {
+  height: auto !important;
+  padding: 10px 12px !important;
+  line-height: 1.2 !important;
+  border-radius: 14px !important;
+}
+
+/* 추가 버튼 */
+.tasksAddBtn {
+  white-space: nowrap !important; /* ✅ 2줄 방지 */
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  min-width: 64px; /* "추가"가 눌리지 않게 */
+}
+
+/* pager 버튼도 2줄 방지 */
+.tasksPagerBtns button {
+  white-space: nowrap !important;
+}
+
+/* =========================
+   Task item (TaskItem)
+   - TaskItem은 ui.taskCard(인라인) + className="taskCard"라
+     인라인이 우선이지만, 텍스트/버튼/배지 등은 CSS로 충분히 컨트롤 가능
+========================= */
+
+.taskCard {
+  /* 카드 자체는 인라인이 우선이므로 여기선 보조만 */
+}
+
+.taskActions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* 수정/삭제 버튼: 무조건 1줄 */
+.taskActions button {
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+/* 날짜 배지(클릭 영역) */
+.taskDueBadge {
+  user-select: none;
+  white-space: nowrap;
+}
+
+/* =========================
+   Modal
+========================= */
+
+.sectionModal {
+  max-height: 85vh;
+  overflow: auto;
+}
+
+/* =========================
+   Responsive
+========================= */
+
+/* Tablet */
+@media (max-width: 1140px) {
+  .tasksPanel {
+    padding: 14px !important;
+  }
+
+  .tasksInputRow input:not([type="date"]),
+  .tasksInputRow input[type="date"] {
+    padding: 9px 11px !important;
+    border-radius: 13px !important;
+  }
+
+  .tasksAddBtn {
+    padding: 8px 12px !important;
+  }
+}
+
+/* Mobile */
+@media (max-width: 860px) {
+  .pageTop {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 12px !important;
+  }
+
+  .pageHeaderBtn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* 입력 줄: 좁으면 자연스럽게 줄바꿈 */
+  .tasksInputRow {
+    gap: 8px !important;
+  }
+
+  .tasksInputRow input:not([type="date"]) {
+    min-width: 0 !important; /* 인라인 minWidth 200보다 작아질 수 있게 */
+    flex: 1 1 100% !important;
+  }
+
+  .tasksInputRow input[type="date"] {
+    width: 100% !important; /* 인라인 width 170 덮어씀 */
+    flex: 1 1 100% !important;
+  }
+
+  .tasksAddBtn {
+    width: 100%;
+  }
+
+  /* task actions: 버튼이 너무 길면 말줄임 */
+  .taskActions button {
+    max-width: 140px;
+  }
+}
+
+/* Small mobile: <=390px */
+@media (max-width: 390px) {
+  /* 제목/서브 텍스트가 길어져도 줄바꿈 자연스럽게 */
+  .pageSub {
+    word-break: break-word;
+  }
+
+  /* pager 버튼이 두 줄로 깨지지 않게 */
+  .tasksPagerBtns {
+    gap: 8px !important;
+  }
+  .tasksPagerBtns button {
+    padding: 8px 10px !important;
+    font-size: 12.5px !important;
+    white-space: nowrap !important;
+  }
+
+  /* 입력 높이 더 컴팩트 */
+  .tasksInputRow input:not([type="date"]),
+  .tasksInputRow input[type="date"] {
+    padding: 9px 10px !important;
+    font-size: 13px !important;
+  }
+
+  .tasksAddBtn {
+    font-size: 13px !important;
+    padding: 9px 10px !important;
+    white-space: nowrap !important;
+  }
+
+  /* TaskItem의 수정/삭제도 절대 2줄 금지 */
+  .taskActions button {
+    font-size: 12.5px !important;
+    padding: 7px 10px !important;
+    white-space: nowrap !important;
+  }
+}
+/* =========================
+   ✅ Task page Hero (대시보드 위치 맞춤)
+   - 상단 좌측 텍스트를 대시보드처럼 정렬
+   ========================= */
+
+.tasksHero {
+  /* 대시보드처럼 위에서 살짝 내려오고, 왼쪽 여백 확보 */
+  padding: 12px 2px 10px;
+  margin-bottom: 10px;
+  padding-left: 52px; /* ✅ 대시보드/캘린더와 동일 톤 */
+}
+
+.tasksHeroText {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 760px;
+}
+
+/* 칩(있으면) */
+.tasksChip {
+  display: inline-flex;
+  align-items: center;
+  height: 28px;
+  padding: 0 11px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 14px;
+  border: 1px solid rgba(148, 163, 184, 0.55);
+  background: rgba(59, 130, 246, 0.12);
+  color: rgba(37, 99, 235, 0.95);
+  width: fit-content;
+}
+
+/* 타이틀/서브(있으면) */
+.tasksTitle {
+  margin: 0;
+  font-size: 40px;
+  line-height: 1.08;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: rgba(15, 23, 42, 0.92);
+}
+
+.tasksSub {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 800;
+  color: rgba(15, 23, 42, 0.42);
+}
+
+/* =========================
+   ✅ Responsive (대시보드와 같은 흐름)
+   ========================= */
+
+@media (max-width: 980px) {
+  .tasksHero {
+    padding-left: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .tasksHero {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .tasksTitle {
+    font-size: 32px;
+  }
+
+  .tasksSub {
+    font-size: 13px;
+  }
+
+  .tasksChip {
+    height: 26px;
+    padding: 0 10px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 360px) {
+  .tasksTitle {
+    font-size: 28px;
+  }
+}
+/* =========================
+   ✅ Tasks Header = Dashboard 위치 맞춤
+   (왼쪽 상단 텍스트를 대시보드처럼)
+   ========================= */
+
+.tasksPage .pageTop {
+  /* inline style로 이미 flex 잡혀있지만, 혹시 모를 상태 대비 */
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+/* ✅ 핵심: 왼쪽 헤더를 오른쪽으로 밀어서 Dashboard와 동일 위치 */
+.tasksPage .pageHeader {
+  padding-left: 52px;
+}
+
+/* 타이틀/서브는 이미 inline style이지만, 폰트/간격이 깨질 때 대비 */
+.tasksPage .pageTitle {
+  margin: 0;
+}
+
+.tasksPage .pageSub {
+  margin-top: 8px;
+}
+
+/* 오른쪽 상단 버튼(섹션 관리) */
+.tasksPage .pageHeaderBtn {
+  white-space: nowrap;
+}
+
+/* =========================
+   ✅ Responsive
+   ========================= */
+
+/* 태블릿 이하 */
+@media (max-width: 980px) {
+  .tasksPage .pageHeader {
+    padding-left: 20px;
+  }
+}
+
+/* 모바일 */
+@media (max-width: 600px) {
+  .tasksPage .pageHeader {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  /* 버튼이 너무 튀면 살짝 위/아래 정렬 */
+  .tasksPage .pageTop {
+    gap: 12px;
+  }
+}
+
+/* 작은 폰 */
+@media (max-width: 360px) {
+  .tasksPage .pageHeader {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}

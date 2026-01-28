@@ -1,0 +1,37 @@
+.manageLayout {
+  min-height: 100vh;
+  padding: 18px;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 18px;
+  align-items: start;
+}
+
+.manageMain {
+  padding: 22px;
+  overflow: hidden;
+}
+
+/* ===== Tablet 이하: 1컬럼 + 상단바 공간 확보 ===== */
+@media (max-width: 1024px) {
+  .manageLayout {
+    grid-template-columns: 1fr;
+  }
+
+  .manageMain {
+    padding-top: 140px; /* 상단 fixed 사이드바 높이만큼 */
+  }
+}
+
+/* ===== Phone: 좀 더 여유 ===== */
+@media (max-width: 640px) {
+  .manageLayout {
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .manageMain {
+    padding: 16px;
+    padding-top: 150px;
+  }
+}
