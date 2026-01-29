@@ -58,13 +58,15 @@
 }
 /* src/pages/manage2/manageLayout.css */
 
-.manageLayout {
+.manageLayout{
   min-height: 100vh;
   padding: 18px;
   display: grid;
   grid-template-columns: 280px 1fr;
   gap: 18px;
   align-items: start;
+
+  overflow: hidden; /* 바깥(윈도우) 스크롤 막고 */
 }
 
 /* ✅ Desktop: 사이드바 고정 */
@@ -76,11 +78,13 @@
   align-self: start;
 }
 
-.manageMain {
+.manageMain{
+  height: calc(100vh - 36px); /* ✅ 스크롤 영역 높이 고정 */
+  overflow-y: auto;           /* ✅ 여기서 스크롤 */
+  overflow-x: hidden;
+  min-height: 0;              /* ✅ grid에서 스크롤 필수 */
   padding: 22px;
-  overflow: hidden;
 }
-
 /* ===== Tablet 이하: 1컬럼 + 상단바 공간 확보 ===== */
 @media (max-width: 1024px) {
   .manageLayout {
@@ -128,6 +132,16 @@
     display: none;
   }
 }
+@media (max-width: 1024px){
+  .manageLayout{ grid-template-columns: 1fr; }
+
+  .manageMain{
+    height: calc(100vh - 36px); /* ✅ 유지 */
+    overflow-y: auto;
+    min-height: 0;
+    padding-top: 140px;         /* 상단바 공간 */
+  }
+}
 
 /* ===== Phone ===== */
 @media (max-width: 640px) {
@@ -171,4 +185,8 @@
     font-size: 13px;
     text-align: center;
   }
+}
+.calBg{
+  min-height: 100%;
+  padding: 0;
 }
