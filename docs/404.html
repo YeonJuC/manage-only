@@ -1,13 +1,13 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Redirect</title>
     <script>
       var base = "/manage-only/";
-      var p = location.pathname.startsWith(base) ? location.pathname.slice(base.length) : location.pathname;
-      // p: "m" 또는 "m/..." 형태
-      location.replace(base + "#/" + p + location.search + location.hash);
+      var p = location.pathname.startsWith(base)
+        ? location.pathname.slice(base.length)
+        : location.pathname;
+      location.replace(base + "#/" + p.replace(/^\/+/, "") + location.search + location.hash);
     </script>
   </head>
   <body></body>
