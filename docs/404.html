@@ -4,20 +4,10 @@
     <meta charset="utf-8" />
     <title>Redirect</title>
     <script>
-      // ✅ 반드시 레포명 + trailing slash
       var base = "/manage-only/";
-
-      // 현재 경로에서 base를 제거한 뒤, 남은 path를 redirect로 넘김
-      var path = location.pathname.startsWith(base)
-        ? location.pathname.slice(base.length - 1) // "/m/..." 형태로 만들기 위해 -1
-        : location.pathname;
-
-      var target =
-        base +
-        "?redirect=" +
-        encodeURIComponent(path + location.search + location.hash);
-
-      location.replace(target);
+      var p = location.pathname.startsWith(base) ? location.pathname.slice(base.length) : location.pathname;
+      // p: "m" 또는 "m/..." 형태
+      location.replace(base + "#/" + p + location.search + location.hash);
     </script>
   </head>
   <body></body>
