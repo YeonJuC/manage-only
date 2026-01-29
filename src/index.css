@@ -13,6 +13,26 @@
   --shadow-soft: 0 12px 34px rgba(15,23,42,.09);
   --radius: 18px;
 }
+:root{
+  /* Gate에서 쓰는 누락 변수들 추가 */
+  --bg1: rgba(56,189,248,.22);
+  --bg2: rgba(167,139,250,.18);
+  --bg3: rgba(34,197,94,.12);
+
+  --r-xl: 30px;
+  --r-lg: 18px;
+
+  --stroke: rgba(148,163,184,.24);
+  --shadow2: 0 14px 42px rgba(15,23,42,.10);
+}
+/* ✅ Vite 기본 App.css(#root 박스화) 완전 무력화 */
+#root{
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-align: initial !important;
+}
 
 * { box-sizing: border-box; }
 html, body, #root { height: 100%; }
@@ -324,56 +344,6 @@ body { margin: 0; color: var(--text); background: var(--bg); }
   font-weight: 800;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-
-button:focus,
-button:focus-visible {
-  outline: none;
-  box-shadow: none;
-}
-
-
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}
-
 /* 기본(데스크탑)에서는 지금처럼 왼쪽 sticky 사이드바를 유지 */
 .manageSidebar {
   /* 데스크탑 레이아웃에서 사이드바 폭이 필요하면 여기서 고정 */
@@ -385,6 +355,16 @@ button:focus-visible {
   overflow: hidden;
   z-index: 50;
 }
+
+.manageGate-card { overflow: hidden; }
+
+.manageGate-card::before{ z-index: 0; }
+
+.manageGate-card > *{
+  position: relative;
+  z-index: 1;
+}
+
 
 /* ====== Tablet 이하: 사이드바를 "상단바"로 전환 ====== */
 @media (max-width: 1024px) {

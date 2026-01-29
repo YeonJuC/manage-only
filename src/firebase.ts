@@ -20,4 +20,19 @@ export const db = initializeFirestore(app, {
   experimentalForceLongPolling: true,
 });
 
+const required = [
+  "VITE_FIREBASE_API_KEY",
+  "VITE_FIREBASE_AUTH_DOMAIN",
+  "VITE_FIREBASE_PROJECT_ID",
+  "VITE_FIREBASE_STORAGE_BUCKET",
+  "VITE_FIREBASE_MESSAGING_SENDER_ID",
+  "VITE_FIREBASE_APP_ID",
+] as const;
+
+for (const k of required) {
+  if (!import.meta.env[k]) {
+    throw new Error(`Missing env: ${k} (check .env location/name)`);
+  }
+}
+
 

@@ -17,3 +17,4 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     </BrowserRouter>
   </React.StrictMode>
 );
+console.log("BASE_URL =", import.meta.env.BASE_URL);
