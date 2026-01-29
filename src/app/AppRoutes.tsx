@@ -12,13 +12,12 @@ export default function AppRoutes() {
   return (
     <Manage2Provider>
       <Routes>
-        {/* 루트는 /m */}
         <Route path="/" element={<Navigate to="/m" replace />} />
 
         {/* ✅ Gate는 단독 */}
         <Route path="/m" element={<ManageGate />} />
 
-        {/* ✅ 앱 영역만 보호 + AppShell 레이아웃 */}
+        {/* ✅ 앱 영역만 보호 */}
         <Route
           path="/m/*"
           element={
@@ -34,7 +33,6 @@ export default function AppRoutes() {
           <Route path="*" element={<Navigate to="dashboard" replace />} />
         </Route>
 
-        {/* 나머지는 /m */}
         <Route path="*" element={<Navigate to="/m" replace />} />
       </Routes>
     </Manage2Provider>

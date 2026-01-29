@@ -18,6 +18,8 @@ import {
 import { onAuthStateChanged } from "firebase/auth";
 
 import { useManage2 } from "../../store/manage2Store";
+import PageHeader from "../../components/manage/PageHeader";
+
 
 type Task = {
   id: string;
@@ -259,23 +261,16 @@ export default function Dashboard() {
   return (
     <div className="dashPage">
       <div className="dashWrap">
-        <header className="dashHeader">
-          <div className="dashChipRow">
-            <span className="dashChip">Dashboard</span>
-            <span className="dashTiny">일상 / 업무 공용 플래너</span>
-          </div>
-
-          <div className="dashTitleRow">
-            <h1 className="dashTitle">대시보드</h1>
-            <div className="dashSub">
-              {manageId ? `Planner · ${todayISO}` : "Planner 없음"} · 완료율{" "}
-              {total ? Math.round((doneCnt / total) * 100) : 0}%
-            </div>
-          </div>
-
-          {err && <div className="dashErr">{err}</div>}
-        </header>
-
+        <PageHeader
+          chip="Dashboard"
+          caption="일상 / 업무 공용 플래너"
+          title="대시보드"
+          sub={`${manageId ? `Planner · ${todayISO}` : "Planner 없음"} · 완료율 ${
+            total ? Math.round((doneCnt / total) * 100) : 0
+          }%`}
+          error={err}
+        />
+        
         {/* Search */}
         <section className="searchCenter">
           <div className="searchGlass">

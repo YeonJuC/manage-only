@@ -34,7 +34,6 @@ export default function ManageSidebar() {
       style={{
         // 레이아웃/반응형은 CSS(index.css)에서 처리
         padding: 16,
-        overflow: "hidden",
       }}
     >
       {/* 헤더 */}

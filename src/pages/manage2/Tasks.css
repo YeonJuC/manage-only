@@ -293,9 +293,7 @@
 }
 
 /* ✅ 핵심: 왼쪽 헤더를 오른쪽으로 밀어서 Dashboard와 동일 위치 */
-.tasksPage .pageHeader {
-  padding-left: 52px;
-}
+.tasksPage .pageHeader { padding-left: 0; }
 
 /* 타이틀/서브는 이미 inline style이지만, 폰트/간격이 깨질 때 대비 */
 .tasksPage .pageTitle {

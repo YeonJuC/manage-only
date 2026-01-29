@@ -20,6 +20,7 @@ import {
   limit,
 } from "firebase/firestore";
 import "./Tasks.css";
+import PageHeader from "../../components/manage/PageHeader";
 
 /** ✅ 섹션에 color 추가 */
 type Section = { id: string; name: string; order: number; color?: string };
@@ -63,14 +64,40 @@ const ui = {
 
   page: {
     width: "100%",
-    maxWidth: 1320,
+    maxWidth: 1160,
     margin: "0 auto",
-    padding: "56px 22px 56px",
+    padding: "22px 22px 56px",
     boxSizing: "border-box" as const,
   },
 
   progressWrap: {
     padding: "0 6px", // ✅ 메인 카드보다 살짝 안쪽
+  },
+
+  headerBadgeRow: {
+    display: "flex",
+    alignItems: "center",
+    gap: 10,
+    marginBottom: 10,
+  },
+
+  headerChip: {
+    display: "inline-flex",
+    alignItems: "center",
+    padding: "8px 14px",
+    borderRadius: 999,
+    border: "1px solid rgba(59,130,246,.22)",
+    background: "rgba(59,130,246,.14)",
+    color: "rgba(37,99,235,.95)",
+    fontWeight: 950,
+    fontSize: 14,
+    lineHeight: 1,
+  },
+
+  headerCaption: {
+    color: "rgba(11,18,32,.55)",
+    fontWeight: 750,
+    fontSize: 14,
   },
 
   topBar: {
@@ -743,35 +770,45 @@ export default function Manage2Tasks() {
       <div style={ui.page} className="tasksPage">
         {/* ✅ Dashboard와 동일한 헤더 포맷 */}
         <div style={ui.topBar} className="pageTop">
-          <div className="pageHeader">
-            <h1 style={ui.title} className="pageTitle">
-              할 일
-            </h1>
-            <p style={ui.sub} className="pageSub">
-              Planner · {todayStr} · 완료율 {overallPct}% · 페이지 {page + 1}/{totalPages}
-            </p>
-
-            <div style={ui.pagerRow} className="tasksPagerRow">
-              <div style={ui.pageInfo}>섹션+내용이 최대 {PAGE_SIZE}개씩 보여요.</div>
-              <div style={ui.pagerBtns} className="tasksPagerBtns">
-                <button onClick={() => setPage((p) => Math.max(0, p - 1))} disabled={page <= 0} style={ui.btnGhost(page <= 0)}>
-                  ‹ 이전
-                </button>
-                <button
-                  onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}
-                  disabled={page >= totalPages - 1}
-                  style={ui.btnGhost(page >= totalPages - 1)}
-                >
-                  다음 ›
-                </button>
-              </div>
+          <PageHeader
+            chip="Tasks"
+            caption="일상 / 업무 공용 플래너"
+            title="할 일"
+            sub={`Planner · ${todayStr} · 완료율 ${overallPct}% · 페이지 ${page + 1}/${totalPages}`}
+          >
+            <div style={{ ...ui.pageInfo, marginBottom: 10 }}>
+              섹션+내용이 최대 {PAGE_SIZE}개씩 보여요.
             </div>
-          </div>
 
-          <button onClick={() => setSectionModal(true)} style={ui.btnGhost(false)} className="pageHeaderBtn">
+            <div style={ui.pagerBtns} className="tasksPagerBtns">
+              <button
+                onClick={() => setPage((p) => Math.max(0, p - 1))}
+                disabled={page <= 0}
+                style={ui.btnGhost(page <= 0)}
+              >
+                ‹ 이전
+              </button>
+
+              <button
+                onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}
+                disabled={page >= totalPages - 1}
+                style={ui.btnGhost(page >= totalPages - 1)}
+              >
+                다음 ›
+              </button>
+            </div>
+          </PageHeader>
+
+
+          <button
+            onClick={() => setSectionModal(true)}
+            style={ui.btnGhost(false)}
+            className="pageHeaderBtn"
+          >
             섹션 관리
           </button>
         </div>
+
 
         {err && <div style={ui.error}>{err}</div>}
 

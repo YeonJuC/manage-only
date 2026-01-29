@@ -34,7 +34,6 @@ async function deleteCollectionInBatches(path: string, batchSize = 450) {
 }
 
 async function deletePlannerDeep(uid: string, plannerId: string) {
-  // 하위 컬렉션 싹 지우고, 마지막에 manages 문서 제거
   await deleteCollectionInBatches(`users/${uid}/manages/${plannerId}/tasks`);
   await deleteCollectionInBatches(`users/${uid}/manages/${plannerId}/sections`);
   await deleteDoc(doc(db, "users", uid, "manages", plannerId));
@@ -52,8 +51,10 @@ export default function ManageGate() {
   const [busyId, setBusyId] = useState<string | null>(null);
   const [err, setErr] = useState("");
 
-  // Gate 진입 시 "최근 플래너 자동 오픈"을 1회만 하도록
   const didAutoOpen = useRef(false);
+
+  // ✅ 한 단어 타이틀 (원하면 바꿔)
+  const HERO_TITLE = "Manage Gate";
 
   // auth 관찰
   useEffect(() => {
@@ -89,12 +90,13 @@ export default function ManageGate() {
     return () => unsub();
   }, [user?.uid]);
 
-  // ✅ 로그인 + 목록 로드 완료 시, 로컬스토리지에 남아있는 최근 플래너가 있으면 자동 진입
+  // ✅ 로그인 + 목록 로드 완료 시, 최근 플래너 자동 진입(1회)
   useEffect(() => {
     if (didAutoOpen.current) return;
     if (loading) return;
     if (!user) return;
     if (listLoading) return;
+
     if (!manageId) {
       didAutoOpen.current = true;
       return;
@@ -102,19 +104,22 @@ export default function ManageGate() {
 
     const found = manages.find((m) => m.id === manageId);
     if (found) {
-      // 이름이 바뀌었을 수도 있으니 최신 이름으로 동기화
       setManage(found.id, found.name);
       didAutoOpen.current = true;
       nav("/m/dashboard");
       return;
     }
 
-    // 로컬에만 남아있고 실제로는 없는 플래너면 정리
     clearManage();
     didAutoOpen.current = true;
   }, [loading, user, listLoading, manageId, manages, nav, setManage, clearManage]);
 
   const canCreate = useMemo(() => name.trim().length >= 1 && !!user?.uid, [name, user?.uid]);
+
+  const welcomeName =
+    (user?.displayName && user.displayName.trim()) ||
+    (user?.email && user.email.split("@")[0]) ||
+    "";
 
   const onCreate = async () => {
     setErr("");
@@ -125,13 +130,13 @@ export default function ManageGate() {
     }
     const n = name.trim();
     if (!n) return;
+
     try {
       const ref = await addDoc(collection(db, "users", uid, "manages"), {
         name: n,
         createdAt: serverTimestamp(),
       });
 
-      // 바로 선택 후 앱 진입
       setManage(ref.id, n);
       setName("");
       nav("/m/dashboard");
@@ -157,7 +162,6 @@ export default function ManageGate() {
     setBusyId(m.id);
     try {
       await deletePlannerDeep(uid, m.id);
-      // 삭제한 게 현재 선택된 플래너면 상태도 비움
       if (manageId === m.id) clearManage();
       setManages((prev) => prev.filter((x) => x.id !== m.id));
     } catch (e: any) {
@@ -174,15 +178,21 @@ export default function ManageGate() {
           <div>
             <div className="manageGate-badgeRow">
               <span className="manageGate-chip">Planner</span>
-              <span className="manageGate-subchip">/m</span>
+
+              {user && (
+                <span className="manageGate-welcomeInline">
+                  <b>{welcomeName}</b> 님 환영합니다
+                </span>
+              )}
             </div>
-            <h1 className="manageGate-title">Manage Gate</h1>
-            <p className="manageGate-desc">
-              플래너를 만들거나 선택하면 대시보드/할일/캘린더로 들어갈 수 있어요.
+
+            <h1 className="manageGate-title">{HERO_TITLE}</h1>
+            <p className="manageGate-hint">
+              최근 플래너를 바로 열거나, 새 플래너를 만들어 시작하세요.
             </p>
           </div>
 
-          <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+          <div className="manageGate-topActions">
             {loading ? (
               <button className="manageGate-btn" disabled>
                 로딩 중…
@@ -190,7 +200,7 @@ export default function ManageGate() {
             ) : user ? (
               <>
                 <button
-                  className="manageGate-btn"
+                  className="manageGate-btn manageGate-btnPrimary"
                   onClick={() => {
                     if (manageId && manageName) nav("/m/dashboard");
                   }}
@@ -199,8 +209,9 @@ export default function ManageGate() {
                 >
                   최근 플래너 열기
                 </button>
+
                 <button
-                  className="manageGate-btn"
+                  className="manageGate-btn manageGate-btnGhost"
                   onClick={async () => {
                     clearManage();
                     await signOut(auth);
@@ -231,13 +242,14 @@ export default function ManageGate() {
         <div className="manageGate-section">
           {err && <div className="manageGate-error">{err}</div>}
 
-          <div className="manageGate-rowBetween" style={{ marginBottom: 10 }}>
+          <div className="manageGate-rowBetween" style={{ marginBottom: 14 }}>
             <div>
-              <div className="manageGate-welcomeTitle">내 Planner</div>
+              <div className="manageGate-welcomeTitle">내 Planner 목록</div>
               <div className="manageGate-welcomeDesc">
-                {user ? user.displayName ?? user.email : "로그인하면 플래너를 생성/선택할 수 있어요."}
+                {user ? "플래너를 만들거나 선택하세요." : "로그인하면 플래너를 생성/선택할 수 있어요."}
               </div>
             </div>
+
             {!!user && !!manageId && (
               <div className="manageGate-pillOk" title={manageName ?? ""}>
                 최근: {manageName ?? "(이름 없음)"}
@@ -257,25 +269,25 @@ export default function ManageGate() {
               }}
             />
             <button className="manageGate-btn manageGate-btnPrimary" onClick={onCreate} disabled={!canCreate}>
-              새 Planner 만들기
+              만들기
             </button>
           </div>
 
           {!user ? (
-            <div style={{ marginTop: 12, color: "rgba(15,23,42,.55)", fontWeight: 850 }}>
+            <div style={{ marginTop: 14, color: "rgba(15,23,42,.55)", fontWeight: 850 }}>
               로그인하면 목록이 보입니다.
             </div>
           ) : listLoading ? (
-            <div className="manageGate-list" aria-busy="true" style={{ marginTop: 10 }}>
+            <div className="manageGate-list" aria-busy="true" style={{ marginTop: 12 }}>
               {[0, 1, 2].map((k) => (
                 <div key={k} className="manageGate-item" style={{ cursor: "default" }}>
                   <div style={{ height: 14, width: "58%", borderRadius: 10, background: "rgba(15,23,42,.10)" }} />
-                  <div style={{ marginTop: 8, height: 12, width: "42%", borderRadius: 10, background: "rgba(15,23,42,.07)" }} />
+                  <div style={{ marginTop: 10, height: 12, width: "42%", borderRadius: 10, background: "rgba(15,23,42,.07)" }} />
                 </div>
               ))}
             </div>
           ) : manages.length === 0 ? (
-            <div style={{ marginTop: 12, color: "rgba(15,23,42,.55)", fontWeight: 850 }}>
+            <div style={{ marginTop: 14, color: "rgba(15,23,42,.55)", fontWeight: 850 }}>
               아직 만든 Planner가 없습니다. 위에서 생성하세요.
             </div>
           ) : (
@@ -287,9 +299,10 @@ export default function ManageGate() {
                       <div className="manageGate-itemTitle">{m.name}</div>
                       <div className="manageGate-itemSub">id: {m.id}</div>
                     </div>
+
                     <div style={{ display: "flex", gap: 8 }}>
                       <button
-                        className="manageGate-btn"
+                        className="manageGate-btn manageGate-btnMini"
                         onClick={(e) => {
                           e.stopPropagation();
                           onOpen(m);
@@ -297,8 +310,9 @@ export default function ManageGate() {
                       >
                         열기
                       </button>
+
                       <button
-                        className="manageGate-btn"
+                        className="manageGate-btn manageGate-btnMini manageGate-btnDanger"
                         onClick={(e) => {
                           e.stopPropagation();
                           onDelete(m);

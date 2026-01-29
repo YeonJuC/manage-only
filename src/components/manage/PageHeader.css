@@ -1,0 +1,100 @@
+.phHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.phLeft {
+  min-width: 0;
+}
+
+.phChipRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.phChip {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(59, 130, 246, 0.22);
+  background: rgba(59, 130, 246, 0.14);
+  color: rgba(37, 99, 235, 0.95);
+  font-weight: 950;
+  font-size: 14px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.phCaption {
+  color: rgba(15, 23, 42, 0.55);
+  font-weight: 750;
+  font-size: 14px;
+}
+
+.phTitleRow {
+  display: grid;
+  gap: 6px;
+}
+
+.phTitle {
+  margin: 0;
+  font-size: 44px;
+  letter-spacing: -1.2px;
+  font-weight: 1000;
+  color: rgba(15, 23, 42, 0.92);
+}
+
+.phSub {
+  color: rgba(15, 23, 42, 0.55);
+  font-weight: 800;
+  font-size: 16px;
+}
+
+.phChildren {
+  margin-top: 14px;
+}
+
+.phRight {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.phErr {
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 16px;
+  background: rgba(239, 68, 68, 0.10);
+  border: 1px solid rgba(239, 68, 68, 0.16);
+  color: rgba(185, 28, 28, 0.95);
+  font-weight: 900;
+}
+
+/* 반응형 */
+@media (max-width: 640px) {
+  .phHeader {
+    gap: 12px;
+  }
+
+  .phTitle {
+    font-size: 36px;
+    letter-spacing: -0.9px;
+  }
+
+  .phSub,
+  .phCaption {
+    font-size: 13px;
+  }
+
+  .phChip {
+    padding: 7px 12px;
+    font-size: 13px;
+  }
+}

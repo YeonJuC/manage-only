@@ -7,6 +7,7 @@ import { useManage2 } from "../../store/manage2Store";
 import { auth, db } from "../../firebase";
 import { collection, onSnapshot, orderBy, query, where } from "firebase/firestore";
 import "./Manage2Calendar.css";
+import PageHeader from "../../components/manage/PageHeader";
 
 type ValuePiece = Date | null;
 type CalValue = ValuePiece | [ValuePiece, ValuePiece];
@@ -172,22 +173,13 @@ export default function Manage2Calendar() {
   return (
     <div className="calBg">
       <div className="calPage">
-        <header className="calHero">
-          <div className="calHeroText">
-            <div className="calTopRow">
-              <span className="calChip">Calendar</span>
-              <span className="calTopDesc">일상 / 업무 공용 플래너</span>
-            </div>
-
-            <h1 className="calTitle">캘린더</h1>
-
-            <p className="calSub">
-              Planner · {selectedYmd} · {selectedTasks.length}개 · 완료 {doneCount}개
-            </p>
-
-            {err && <div className="calErr">{err}</div>}
-          </div>
-        </header>
+        <PageHeader
+          chip="Calendar"
+          caption="일상 / 업무 공용 플래너"
+          title="캘린더"
+          sub={`Planner · ${selectedYmd} · ${selectedTasks.length}개 · 완료 ${doneCount}개`}
+          error={err}
+        />
 
         <div className="calGrid">
           <div className="glass calCard">

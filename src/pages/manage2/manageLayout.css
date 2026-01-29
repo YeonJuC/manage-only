@@ -7,9 +7,21 @@
   align-items: start;
 }
 
+.manageLayout {
+  min-height: 100vh;
+  padding: 18px;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 18px;
+  align-items: start;
+
+  overflow: hidden; /* 🔥 전체 스크롤 차단 */
+}
+
 .manageMain {
+  height: calc(100vh - 36px);
+  overflow-y: auto; /* ✅ 여기만 스크롤 */
   padding: 22px;
-  overflow: hidden;
 }
 
 /* ===== Tablet 이하: 1컬럼 + 상단바 공간 확보 ===== */
@@ -33,5 +45,130 @@
   .manageMain {
     padding: 16px;
     padding-top: 150px;
+  }
+}
+@media (max-width: 1024px) {
+  .manageLayout {
+    grid-template-columns: 1fr;
+  }
+
+  .manageMain {
+    padding-top: 140px;
+  }
+}
+/* src/pages/manage2/manageLayout.css */
+
+.manageLayout {
+  min-height: 100vh;
+  padding: 18px;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 18px;
+  align-items: start;
+}
+
+/* ✅ Desktop: 사이드바 고정 */
+.manageSidebar{
+  position: sticky;
+  top: 18px;
+  height: calc(100vh - 36px);
+  overflow: auto;
+  align-self: start;
+}
+
+.manageMain {
+  padding: 22px;
+  overflow: hidden;
+}
+
+/* ===== Tablet 이하: 1컬럼 + 상단바 공간 확보 ===== */
+@media (max-width: 1024px) {
+  .manageLayout {
+    grid-template-columns: 1fr;
+  }
+
+  .manageMain {
+    padding-top: 140px; /* 상단 fixed 사이드바 높이만큼 */
+  }
+
+  /* ✅ Tablet 이하: 사이드바를 상단바로 전환 (모든 페이지 공통 적용) */
+  .manageSidebar{
+    position: fixed !important;
+    left: 12px;
+    right: 12px;
+    top: 12px !important;
+    height: auto !important;
+    width: auto !important;
+    overflow: visible !important;
+    z-index: 50;
+  }
+
+  .manageSidebar .sideHeader{
+    padding: 0 !important;
+    display: grid;
+    gap: 8px;
+  }
+
+  .manageSidebar .sideHeaderActions{
+    margin-top: 0 !important;
+    justify-content: flex-end;
+  }
+
+  .manageSidebar .sideNav{
+    padding: 0 !important;
+    display: grid !important;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .manageSidebar .sideDivider,
+  .manageSidebar .sideHint{
+    display: none;
+  }
+}
+
+/* ===== Phone ===== */
+@media (max-width: 640px) {
+  .manageLayout {
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .manageMain {
+    padding: 16px;
+    padding-top: 150px;
+  }
+
+  .manageSidebar{
+    left: 10px;
+    right: 10px;
+    top: 10px !important;
+    padding: 10px !important;
+  }
+
+  .manageSidebar .sideTitle{
+    font-size: 14px !important;
+  }
+
+  .manageSidebar .iconBtn{
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+
+  .manageSidebar .sideDot{
+    display: none;
+  }
+
+  .manageSidebar .sideHeaderActions{
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .manageSidebar .sideLink{
+    padding: 10px 10px;
+    font-size: 13px;
+    text-align: center;
   }
 }

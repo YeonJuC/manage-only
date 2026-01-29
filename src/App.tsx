@@ -9,10 +9,14 @@ import ManageLayout from "./pages/manage2/ManageLayout";
 import Dashboard from "./pages/manage2/Dashboard";
 import Tasks from "./pages/manage2/Tasks";
 import Calendar from "./pages/manage2/Calendar";
+import ScrollToTop from "./app/ScrollToTop";
 
 export default function App() {
   return (
     <Manage2Provider>
+      <ScrollToTop />
+      {/* <ScrollToTop containerSelector="#mainScroll" />  // 컨테이너 스크롤이면 이걸로 */}
+      {/* ...Routes... */}
       <Routes>
         <Route path="/" element={<Navigate to="/m" replace />} />
 
