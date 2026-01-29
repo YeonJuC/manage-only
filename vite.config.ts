@@ -1,7 +1,7 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
-export default defineConfig(({ command }) => ({
+export default defineConfig(({ mode }) => ({
   plugins: [react()],
-  base: command === "build" ? "/manage-only/" : "/",
+  base: mode === "production" ? "/manage-only/" : "/",
 }));
