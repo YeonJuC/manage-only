@@ -5,15 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Redirecting…</title>
     <script>
-      // GitHub Pages SPA fallback (repo: /manage-only)
+      // /manage-only/m -> /manage-only/#/m
       var repo = "/manage-only";
       var path = location.pathname;
 
-      // /manage-only/m -> /manage-only/#/m
       if (path.startsWith(repo)) path = path.slice(repo.length);
       if (!path.startsWith("/")) path = "/" + path;
 
-      location.replace(repo + "/#" + path + location.search + location.hash);
+      location.replace(repo + "/#" + path + location.search);
     </script>
   </head>
   <body></body>
